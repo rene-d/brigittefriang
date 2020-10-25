@@ -1,3 +1,6 @@
+
+
+
 access.log:
 179.97.58.61 - - [Nov 05 2020 16:22:20] "POST /login HTTP/1.1" 200 476 "-" "Evil Browser"
 
@@ -5,12 +8,39 @@ Adresse IP: 179.97.58.61
 
 unzip evil_country_landscape.jpg
 
+raids possibles (cf. https://docs.oracle.com/cd/E19871-01/820-1847-20/appendixf.html):
+* RAID 0
+* RAID 1
+* RAID 1 Enhanced Arrays
+* RAID 5 Arrays
+
+
+sudo losetup /dev/loop2 part2.img
+sudo losetup /dev/loop3 part3.img
+
+sudo mount /dev/md6 /mnt
+unzip /mnt/dump.zip
+sudo umount /mnt
+sudo mdadm --stop /dev/md6
+sudo losetup -D
 
 
 
+ volatility -f dump.vmem imageinfo
+ volatility -f dump.vmem --profile Win7SP1x64 envars
+ # => notepad, dropbox,
 
-sudo losetup /dev/loop1 image1.img
-sudo losetup /dev/loop2 image2.img
-sudo losetup /dev/loop3 image3.img
+volatility -f dump.vmem --profile Win7SP1x64 pstree
+    cmd.exe                       1744
+    notepad.exe                     1880
+    drpbx.exe                        2304
 
-sudo mdadm --create /dev/md0 --level=0 --raid-devices=3 /dev/loop1 /dev/loop2 /dev/loop3
+volatility -f dump.vmem --profile Win7SP1x64 memdump -p 1880 -D .
+
+volatility -f dump.vmem --profile Win7SP1x64 filescan | grep Documents
+
+0x000000003ddb1890      7      0 R--r-d \Device\HarddiskVolume1\Users\user\Documents\Firefox_installer.exe
+0x000000001715ed50     16      0 R--r-- \Device\HarddiskVolume1\Users\user\Documents\informations_attaque.txt.evil
+
+
+volatility -f dump.vmem --profile Win7SP1x64 dumpfiles -D toto -Q 0x000000001715ed50  -n
