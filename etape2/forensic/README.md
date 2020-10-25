@@ -37,10 +37,23 @@ volatility -f dump.vmem --profile Win7SP1x64 pstree
 
 volatility -f dump.vmem --profile Win7SP1x64 memdump -p 1880 -D .
 
+"J'ai payé, je veux retrouver mes fichiers svp"
+"Envoyez 500000 EvilCoins ici:"
+"Que les choses soient bien claires, nous ne tolérons aucune entrave à notre plan
+Votre action de résistance est vaine et dénuée de sens
+Nous vous détruirons sans_
+"
+
 volatility -f dump.vmem --profile Win7SP1x64 filescan | grep Documents
 
 0x000000003ddb1890      7      0 R--r-d \Device\HarddiskVolume1\Users\user\Documents\Firefox_installer.exe
 0x000000001715ed50     16      0 R--r-- \Device\HarddiskVolume1\Users\user\Documents\informations_attaque.txt.evil
 
 
+volatility -f dump.vmem --profile Win7SP1x64 dumpfiles -D toto -Q 0x000000003ddb1890  -n
 volatility -f dump.vmem --profile Win7SP1x64 dumpfiles -D toto -Q 0x000000001715ed50  -n
+
+
+!!! JigSaw
+"Copyright 1999-2012 Firefox and Mozzilla developers. All rights reserved"
+dans file.None.0xfffffa800e7892a0.Firefox_installer.exe.dat
