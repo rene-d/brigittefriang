@@ -48,7 +48,7 @@ setworldcoordinates(-0.5, -0.5, 10.5, 10.5)
 
 speed("fastest")
 
-for line in open("location.txt"):
+for line in open("memdump.txt"):
     if line.strip().startswith("Custom Location"):
         penup()
 
