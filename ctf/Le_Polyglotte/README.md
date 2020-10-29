@@ -13,8 +13,8 @@ Pouvez-vous le faire pour nous ? Une archive était dans le même dossier, elle 
 
 Le flag est de la forme : DGSESIEE{x} avec x un hash que vous trouverez
 
-message.pdf (SHA256=e5aa5c189d3f3397965238fbef5bc02c889de6d5eac713630e87377a5683967c) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/message.pdf
-secrets.zip (SHA256=ae5877bb06ac9af5ad92c8cd40cd15785cbc7377c629ed8ec7443f251eeca91f) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/secrets.zip
+* message.pdf (SHA256=e5aa5c189d3f3397965238fbef5bc02c889de6d5eac713630e87377a5683967c) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/message.pdf
+* secrets.zip (SHA256=ae5877bb06ac9af5ad92c8cd40cd15785cbc7377c629ed8ec7443f251eeca91f) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/secrets.zip
 
 
 ## WIP
