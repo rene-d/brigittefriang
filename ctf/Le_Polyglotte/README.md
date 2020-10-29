@@ -49,7 +49,7 @@ résultat: `[1]4d862d5a`
 
 ###
 
-aa938a164d862d5a
+flat.py cherche à extraire le bloc binaire à la fin du pdf. format inconnu pour l'instant. pas un zlib (méthode utilisée par /FlatDecocde), pas un truc en décalage +4 ou -4 (cf. le javascript), 6 octets égaux à 6 au début.....
 
 ## Flag
 
