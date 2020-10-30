@@ -1,12 +1,3 @@
-```
-__        _____ ____
-\ \      / /_ _|  _ \
- \ \ /\ / / | || |_) |
-  \ V  V /  | ||  __/
-   \_/\_/  |___|_|
-```
-
-
 # Challenge d'Antoine Rossignol du service Crypto
 
 ## Dialogue
@@ -94,6 +85,8 @@ D'où `x = 5622`
 mot de passe de `code_acces.pdf` : `5622`
 
 ### étape 4
+
+Le problème (toujours de math) consiste à trouver l'inverse dans le groupe généré par le polynome 0x11b dans GF(2⁸).
 
 http://www.cs.utsa.edu/~wagner/laws/FFM.html
 
