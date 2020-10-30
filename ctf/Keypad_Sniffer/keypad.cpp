@@ -47,50 +47,7 @@ std::map<std::string, std::string> table2 =
     {"11101110", "C"}
 };
 
-uint16_t mirror(uint16_t word12b)
-{
-    uint16_t temp = 0;
-    for (int i=0; i<12; i++)
-    {
-        temp |= ((word12b>>i)&1) << (12-(i+1));
-    }
-    return temp;
-}
-
-uint8_t mirror4b(uint16_t word4b)
-{
-    uint8_t temp = 0;
-    for (int i=0; i<4; i++)
-    {
-        temp |= ((word4b>>i)&1) << (4-(i+1));
-    }
-    return temp;
-}
-
-uint8_t get_bit(uint8_t byte, uint8_t bitno)
-{
-    return (byte>>bitno)&1;
-}
-
-void set_bit(uint8_t byte, uint8_t bitno, uint8_t value)
-{
-    if(value==1)
-    {
-        byte |= value<<bitno;
-    }
-    else if(value==0)
-    {
-        byte &= ~(value<<bitno);
-    }
-}
-
-uint8_t remap(uint8_t byte)
-{
-    // return ((byte&0xF)<<4) + ((byte&0xF0)>>4);
-    return byte;
-}
-
-void bytify(std::ifstream& file, std::vector<std::string>& vec)
+void readfile(std::ifstream& file, std::vector<std::string>& vec)
 {
     std::string line;
     while(std::getline(file,line))
@@ -225,7 +182,7 @@ int main()
     std::ifstream ifs("filtered");
     std::vector<std::string> before, after;
 
-    bytify(ifs, before);
+    readfile(ifs, before);
 
     std::cout << "============" << std::endl;
     
