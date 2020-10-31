@@ -17,7 +17,13 @@ Le flag est de la forme : DGSESIEE{x} avec x un hash que vous trouverez
 * secrets.zip (SHA256=ae5877bb06ac9af5ad92c8cd40cd15785cbc7377c629ed8ec7443f251eeca91f) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/secrets.zip
 
 
+## Références
+
+Format [PDF](https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/PDF32000_2008.pdf)
+https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/pdf_reference_archives/PDFReference.pdf
+
 ## WIP
+
 
 dans le PDF:
 

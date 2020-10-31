@@ -1,0 +1,37 @@
+# L'énigme de la crypte
+
+[Lien](https://ctf.challengecybersec.fr/7a144cdc500b28e80cf760d60aca2ed3/challenge-detail.php?chall=22)
+
+Category : Crypto
+
+Points : 200
+
+## Description
+Une livraison de souffre doit avoir lieu 47°N 34 2°W 1 39.
+
+Elle sera effectuée par un certain REJEWSKI. Il a reçu des instructions sur un foulard pour signaler à Evil Gouv son arrivée imminente.
+
+Nous avons une photo du foulard, mais celle-ci n'est pas très nette et nous n'avons pas pu lire toutes les informations. Le fichier foulard.txt, est la retranscription du foulard.
+
+Nous avons un peu avancé sur les parties illisibles :
+
+(texte illisible 1) est deux lettres un espace deux lettres. Il pourrait y avoir un lien avec le dernier code d'accès que vous avez envoyé à Antoine Rossignol.
+
+(texte illisible 2) a été totalement effacé et enfin (texte illisible 3) semble être deux lettres.
+
+REJEWSKI vient d'envoyer un message (final.txt). Il faut que vous arriviez à le déchiffrer. Je vous conseille d'utiliser openssl pour RSA.
+
+Le flag est de la forme DGSESIEE{MESSAGE} où MESSAGE correspond à la partie centrale du texte en majuscules sans espace.
+
+- final.txt (SHA256=1e93526cd819aedb8496430a800a610068e95762536b0366ca7c303a74eaab03) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/final.txt
+- foulard.txt (SHA256=9c8b0caf9d72fa68ddb6b4a68e860ee594683f7fe4a01a821914539ef81a1f21) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/foulard.txt
+
+
+## WIP
+
+Lien vers la coordonnée GPS : https://www.google.com/maps/place/47°34'00.0%22N+2°01'39.0%22W/@47.5666667,-2.0296887,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d47.5666667!4d-2.0275
+
+Indice Antoine Rossignol : `b a:e z`  =>  `BA EZ`
+
+
+
