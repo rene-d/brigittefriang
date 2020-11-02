@@ -508,82 +508,18 @@ bool enigma_init2(struct Enigma *e, const char *args[])
     return enigma_init(e, key, ring, rotors, refl, args[5]);
 }
 
-void ctf_loop(struct Enigma *e)
-{
-    struct Enigma e1 = *e;
-    const struct Rotor *rotors[3];
-    char clair[64];
-
-    const int RM = 5;
-
-    for (int i = 0; i < RM * RM * RM; ++i)
-    {
-        if (i != 110 && i != 14)
-            continue;
-        rotors[0] = ROTORS[i % RM];
-
-        rotors[1] = ROTORS[(i / RM) % RM];
-        if (rotors[1] == rotors[0])
-            continue;
-        rotors[2] = ROTORS[(i / (RM * RM)) % RM];
-        if (rotors[2] == rotors[0] || rotors[2] == rotors[1])
-            continue;
-
-        struct Enigma e1 = *e;
-
-        e1.rotor3 = rotors[0];
-        e1.rotor2 = rotors[1];
-        e1.rotor1 = rotors[2];
-
-        printf("%3d \033[2mEnigma: ", i);
-        enigma_dump(&e1);
-        printf("\033[0m  ");
-
-        encipher_text(&e1, "IVQDQT NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD", clair);
-
-        printf("%s\n", clair);
-
-        if (strstr(clair, "REJEWSKI") != NULL)
-        {
-            printf("TROUVE\n");
-            exit(0);
-        }
-    }
-}
-
-void ctf()
-{
-    struct Enigma e1;
-    const struct Rotor *rotors[3] = {&ROTOR_I, &ROTOR_III, &ROTOR_V};
-    char clair[64];
-
-    // indice: "b a:e z"
-
-    char secret[] = "IVQDQT NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD";
-
-    enigma_init(&e1, enigma_key("MER"), enigma_key("REJ"), rotors, &ROTOR_Reflector_B, "ba ez");
-
-    printf("\033[2mEnigma: ");
-    enigma_dump(&e1);
-    printf("\033[0m  ");
-
-    printf("\033[95m%s\033[0m ", secret);
-    encipher_text(&e1, secret, clair);
-    printf("%s\n", clair);
-
-
-    enigma_init(&e1, enigma_key("ZFG"), enigma_key("REJ"), rotors, &ROTOR_Reflector_B, "ba ez");
-    encipher_text(&e1, "NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD", clair);
-printf("%s\n", clair);
-
-}
+void ctf2();
+void ctf();
 
 int main(int argc, const char *argv[])
 {
     enigma_components_init();
 
-    ctf();
-    return 0;
+    if (argc == 1)
+    {
+        ctf2();
+        return 0;
+    }
 
     if (argc < 7)
     {
@@ -629,4 +565,120 @@ int main(int argc, const char *argv[])
     }
 
     return 0;
+}
+
+void ctf()
+{
+    struct Enigma e1;
+    const struct Rotor *rotors[3] = {&ROTOR_I, &ROTOR_III, &ROTOR_V};
+    char clair[64];
+
+    // indice: "b a:e z"
+
+    char secret[] = "IVQDQT NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD";
+
+    char stecker[] = "xx xx";
+
+    for (int i = 0; i < 26 * 26 * 26 * 26; ++i)
+    {
+        stecker[0] = 'A' + i % 26;
+        stecker[1] = 'A' + (i / 26) % 26;
+        stecker[3] = 'A' + (i / 676) % 26;
+        stecker[4] = 'A' + (i / 17576) % 26;
+
+        if (stecker[0] == stecker[1])
+            continue;
+        if (stecker[0] == stecker[3])
+            continue;
+        if (stecker[0] == stecker[4])
+            continue;
+
+        if (stecker[1] == stecker[3])
+            continue;
+        if (stecker[1] == stecker[4])
+            continue;
+        if (stecker[3] == stecker[4])
+            continue;
+
+        const int RM = 5;
+
+        for (int j = 0; j < RM * RM * RM; ++j)
+        {
+            rotors[0] = ROTORS[j % RM];
+            rotors[1] = ROTORS[(j / RM) % RM];
+            rotors[2] = ROTORS[(j / (RM * RM)) % RM];
+
+            if (rotors[1] == rotors[0])
+                continue;
+            if (rotors[2] == rotors[0] || rotors[2] == rotors[1])
+                continue;
+
+            //enigma_init(&e1, enigma_key("MER"), enigma_key("REJ"), rotors, &ROTOR_Reflector_B, "ba ez");
+            enigma_init(&e1, enigma_key("MER"), enigma_key("REJ"), rotors, &ROTOR_Reflector_B, stecker);
+
+            enigma_dump(&e1);
+
+            printf("\033[2mEnigma: ");
+            enigma_dump(&e1);
+            printf("\033[0m  ");
+            encipher_text(&e1, secret, clair);
+            printf("%s\n", clair);
+        }
+    }
+}
+
+// print(str(list(itertools.permutations(list(range(8)),3))).translate(str.maketrans("[()]", "{{}}")))
+int permutations3of8[8 * 7 * 6][3] =
+    {{0, 1, 2}, {0, 1, 3}, {0, 1, 4}, {0, 1, 5}, {0, 1, 6}, {0, 1, 7}, {0, 2, 1}, {0, 2, 3}, {0, 2, 4}, {0, 2, 5}, {0, 2, 6}, {0, 2, 7}, {0, 3, 1}, {0, 3, 2}, {0, 3, 4}, {0, 3, 5}, {0, 3, 6}, {0, 3, 7}, {0, 4, 1}, {0, 4, 2}, {0, 4, 3}, {0, 4, 5}, {0, 4, 6}, {0, 4, 7}, {0, 5, 1}, {0, 5, 2}, {0, 5, 3}, {0, 5, 4}, {0, 5, 6}, {0, 5, 7}, {0, 6, 1}, {0, 6, 2}, {0, 6, 3}, {0, 6, 4}, {0, 6, 5}, {0, 6, 7}, {0, 7, 1}, {0, 7, 2}, {0, 7, 3}, {0, 7, 4}, {0, 7, 5}, {0, 7, 6}, {1, 0, 2}, {1, 0, 3}, {1, 0, 4}, {1, 0, 5}, {1, 0, 6}, {1, 0, 7}, {1, 2, 0}, {1, 2, 3}, {1, 2, 4}, {1, 2, 5}, {1, 2, 6}, {1, 2, 7}, {1, 3, 0}, {1, 3, 2}, {1, 3, 4}, {1, 3, 5}, {1, 3, 6}, {1, 3, 7}, {1, 4, 0}, {1, 4, 2}, {1, 4, 3}, {1, 4, 5}, {1, 4, 6}, {1, 4, 7}, {1, 5, 0}, {1, 5, 2}, {1, 5, 3}, {1, 5, 4}, {1, 5, 6}, {1, 5, 7}, {1, 6, 0}, {1, 6, 2}, {1, 6, 3}, {1, 6, 4}, {1, 6, 5}, {1, 6, 7}, {1, 7, 0}, {1, 7, 2}, {1, 7, 3}, {1, 7, 4}, {1, 7, 5}, {1, 7, 6}, {2, 0, 1}, {2, 0, 3}, {2, 0, 4}, {2, 0, 5}, {2, 0, 6}, {2, 0, 7}, {2, 1, 0}, {2, 1, 3}, {2, 1, 4}, {2, 1, 5}, {2, 1, 6}, {2, 1, 7}, {2, 3, 0}, {2, 3, 1}, {2, 3, 4}, {2, 3, 5}, {2, 3, 6}, {2, 3, 7}, {2, 4, 0}, {2, 4, 1}, {2, 4, 3}, {2, 4, 5}, {2, 4, 6}, {2, 4, 7}, {2, 5, 0}, {2, 5, 1}, {2, 5, 3}, {2, 5, 4}, {2, 5, 6}, {2, 5, 7}, {2, 6, 0}, {2, 6, 1}, {2, 6, 3}, {2, 6, 4}, {2, 6, 5}, {2, 6, 7}, {2, 7, 0}, {2, 7, 1}, {2, 7, 3}, {2, 7, 4}, {2, 7, 5}, {2, 7, 6}, {3, 0, 1}, {3, 0, 2}, {3, 0, 4}, {3, 0, 5}, {3, 0, 6}, {3, 0, 7}, {3, 1, 0}, {3, 1, 2}, {3, 1, 4}, {3, 1, 5}, {3, 1, 6}, {3, 1, 7}, {3, 2, 0}, {3, 2, 1}, {3, 2, 4}, {3, 2, 5}, {3, 2, 6}, {3, 2, 7}, {3, 4, 0}, {3, 4, 1}, {3, 4, 2}, {3, 4, 5}, {3, 4, 6}, {3, 4, 7}, {3, 5, 0}, {3, 5, 1}, {3, 5, 2}, {3, 5, 4}, {3, 5, 6}, {3, 5, 7}, {3, 6, 0}, {3, 6, 1}, {3, 6, 2}, {3, 6, 4}, {3, 6, 5}, {3, 6, 7}, {3, 7, 0}, {3, 7, 1}, {3, 7, 2}, {3, 7, 4}, {3, 7, 5}, {3, 7, 6}, {4, 0, 1}, {4, 0, 2}, {4, 0, 3}, {4, 0, 5}, {4, 0, 6}, {4, 0, 7}, {4, 1, 0}, {4, 1, 2}, {4, 1, 3}, {4, 1, 5}, {4, 1, 6}, {4, 1, 7}, {4, 2, 0}, {4, 2, 1}, {4, 2, 3}, {4, 2, 5}, {4, 2, 6}, {4, 2, 7}, {4, 3, 0}, {4, 3, 1}, {4, 3, 2}, {4, 3, 5}, {4, 3, 6}, {4, 3, 7}, {4, 5, 0}, {4, 5, 1}, {4, 5, 2}, {4, 5, 3}, {4, 5, 6}, {4, 5, 7}, {4, 6, 0}, {4, 6, 1}, {4, 6, 2}, {4, 6, 3}, {4, 6, 5}, {4, 6, 7}, {4, 7, 0}, {4, 7, 1}, {4, 7, 2}, {4, 7, 3}, {4, 7, 5}, {4, 7, 6}, {5, 0, 1}, {5, 0, 2}, {5, 0, 3}, {5, 0, 4}, {5, 0, 6}, {5, 0, 7}, {5, 1, 0}, {5, 1, 2}, {5, 1, 3}, {5, 1, 4}, {5, 1, 6}, {5, 1, 7}, {5, 2, 0}, {5, 2, 1}, {5, 2, 3}, {5, 2, 4}, {5, 2, 6}, {5, 2, 7}, {5, 3, 0}, {5, 3, 1}, {5, 3, 2}, {5, 3, 4}, {5, 3, 6}, {5, 3, 7}, {5, 4, 0}, {5, 4, 1}, {5, 4, 2}, {5, 4, 3}, {5, 4, 6}, {5, 4, 7}, {5, 6, 0}, {5, 6, 1}, {5, 6, 2}, {5, 6, 3}, {5, 6, 4}, {5, 6, 7}, {5, 7, 0}, {5, 7, 1}, {5, 7, 2}, {5, 7, 3}, {5, 7, 4}, {5, 7, 6}, {6, 0, 1}, {6, 0, 2}, {6, 0, 3}, {6, 0, 4}, {6, 0, 5}, {6, 0, 7}, {6, 1, 0}, {6, 1, 2}, {6, 1, 3}, {6, 1, 4}, {6, 1, 5}, {6, 1, 7}, {6, 2, 0}, {6, 2, 1}, {6, 2, 3}, {6, 2, 4}, {6, 2, 5}, {6, 2, 7}, {6, 3, 0}, {6, 3, 1}, {6, 3, 2}, {6, 3, 4}, {6, 3, 5}, {6, 3, 7}, {6, 4, 0}, {6, 4, 1}, {6, 4, 2}, {6, 4, 3}, {6, 4, 5}, {6, 4, 7}, {6, 5, 0}, {6, 5, 1}, {6, 5, 2}, {6, 5, 3}, {6, 5, 4}, {6, 5, 7}, {6, 7, 0}, {6, 7, 1}, {6, 7, 2}, {6, 7, 3}, {6, 7, 4}, {6, 7, 5}, {7, 0, 1}, {7, 0, 2}, {7, 0, 3}, {7, 0, 4}, {7, 0, 5}, {7, 0, 6}, {7, 1, 0}, {7, 1, 2}, {7, 1, 3}, {7, 1, 4}, {7, 1, 5}, {7, 1, 6}, {7, 2, 0}, {7, 2, 1}, {7, 2, 3}, {7, 2, 4}, {7, 2, 5}, {7, 2, 6}, {7, 3, 0}, {7, 3, 1}, {7, 3, 2}, {7, 3, 4}, {7, 3, 5}, {7, 3, 6}, {7, 4, 0}, {7, 4, 1}, {7, 4, 2}, {7, 4, 3}, {7, 4, 5}, {7, 4, 6}, {7, 5, 0}, {7, 5, 1}, {7, 5, 2}, {7, 5, 3}, {7, 5, 4}, {7, 5, 6}, {7, 6, 0}, {7, 6, 1}, {7, 6, 2}, {7, 6, 3}, {7, 6, 4}, {7, 6, 5}};
+
+void ctf2()
+{
+    struct Enigma e1;
+    const struct Rotor *rotors[3];
+    const struct Reflector *reflectors[5];
+    char clair[64];
+
+    //char secret[] = "IVQDQT NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD";
+    //char secret[] = "IVQDQT NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD";
+    //char secret[] = "THYVCROD";
+    //char secret[] = "DORCVYHT";
+
+    reflectors[0] = &ROTOR_Reflector_B;
+    reflectors[1] = &ROTOR_Reflector_C;
+    reflectors[2] = &ROTOR_Reflector_B_thin;
+    reflectors[3] = &ROTOR_Reflector_C_thin;
+    reflectors[4] = &ROTOR_Reflector_A;
+
+    for (int refl = 0; refl < 5; ++refl)
+    {
+        for (int perm = 0; perm < 8 * 7 * 6; ++perm)
+        {
+            //printf("refl %d perm %3d\n", refl, perm);
+
+            rotors[0] = ROTORS[permutations3of8[perm][0]];
+            rotors[1] = ROTORS[permutations3of8[perm][1]];
+            rotors[2] = ROTORS[permutations3of8[perm][2]];
+
+            for (position key = KEY_AAA; key < KEY_MAX; ++key)
+            {
+                //for (position ring = KEY_AAA; ring < KEY_MAX; ++ring)
+                position ring = enigma_key("REJ");
+//                position ring = enigma_key("JER");
+                {
+                    // indice: "b a:e z"
+                    enigma_init(&e1, key, ring, rotors, reflectors[refl], "BA EZ");
+
+                    encipher_text(&e1, secret, clair);
+
+                    if (strstr(clair, "REJEW") != NULL)
+                    {
+                        printf("\033[2mEnigma: ");
+                        enigma_dump(&e1);
+                        printf("\033[0m  ");
+                        printf("%s\n", clair);
+                    }
+                }
+            }
+        }
+    }
 }
