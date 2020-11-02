@@ -54,6 +54,8 @@ PublicExponent (décimal) : 65537
 
 ### Etape 1: chiffrage RSA
 
+![logo RSA](https://www.rsa.com/content/dam/fw/i/rsa-logo-260x90.png)
+
 On va utiliser l'outil [RsaCtfTool](https://github.com/Ganapati/RsaCtfTool).
 
 C'est l'attaque Fermat (factorisation pour *p* et *q* proches) qui permet d'obtenir la clé privée:
@@ -73,6 +75,8 @@ IVQDQT NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD
 ```
 
 ### Etape 2: Machine Enigma
+
+![logo Enigma](https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Enigma-logo.svg/320px-Enigma-logo.svg.png)
 
 #### Programme
 
@@ -95,7 +99,7 @@ Le mode opératoire d'Enigma est décrit sur des centaines (voir milliers) de si
 Selon les indices et les instructions du foulard, on a :
 * *Grundstellung* (« position initiale des rotors ») : `MER` (foulard)
 * *Ringstellung* (« positionnement de l'anneau ») : `REJ` (foulard)
-* *Walzenlage* (« rotor »): I III V  (foulard: Uniquement les impairs en ordre croissant)
+* *Walzenlage* (« rotor »): `I III V` (foulard: Uniquement les impairs en ordre croissant)
 * *Steckerverbindungen*  (« tableau de connexion, plugboard ») : `BE AZ` (deux lettres un espace deux lettres, indice)
 * *Umkehrwalze* (« réflecteur, reflector ») : `B` (non mentionné sur le foulard)
 
@@ -146,7 +150,7 @@ Le nom de la mission est inspirée par le créateur d'Enigma, [Arthur Scherbius]
 
 [Marian Rejewski](https://fr.wikipedia.org/wiki/Marian_Rejewski) est un mathématicien et cryptologue polonais à l'origine du cassage du chiffrement Enigma.
 
-La localisation [GPS](https://www.google.com/maps/place/47°34'00.0%22N+2°01'39.0%22W/@47.5666703,-2.0296887,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d47.5666667!4d-2.0275) correspond à un terrain au milieu d'un triangle Vannes-Nantes-Rennes, proche du village de Frégéac. La référence reste mystérieuse (mais il n'y a peut-être aucune référence à trouver).
+La localisation [GPS](https://www.google.com/maps/place/47°34'00.0%22N+2°01'39.0%22W/@47.5666703,-2.0296887,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d47.5666667!4d-2.0275) correspond à un terrain au milieu d'un triangle Vannes-Nantes-Rennes, proche du village de Fégréac. La référence reste mystérieuse (mais il n'y a peut-être aucune référence à trouver).
 
 
 ## Flag
