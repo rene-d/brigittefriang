@@ -7,6 +7,7 @@ Category : Crypto
 Points : 200
 
 ## Description
+
 Une livraison de souffre doit avoir lieu 47°N 34 2°W 1 39.
 
 Elle sera effectuée par un certain REJEWSKI. Il a reçu des instructions sur un foulard pour signaler à Evil Gouv son arrivée imminente.
@@ -27,38 +28,99 @@ Le flag est de la forme DGSESIEE{MESSAGE} où MESSAGE correspond à la partie ce
 - foulard.txt (SHA256=9c8b0caf9d72fa68ddb6b4a68e860ee594683f7fe4a01a821914539ef81a1f21) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/foulard.txt
 
 
-## WIP
+## Solution
 
-Lien vers la coordonnée GPS : https://www.google.com/maps/place/47°34'00.0%22N+2°01'39.0%22W/@47.5666667,-2.0296887,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d47.5666667!4d-2.0275
+### Etape 1: chiffrage RSA
 
-Indice Antoine Rossignol : `b a:e z`  =>  `BA EZ`
+On va utiliser l'outil [RsaCtfTool](https://github.com/Ganapati/RsaCtfTool).
 
-[RsaCtfTool](https://github.com/Ganapati/RsaCtfTool)
+C'est l'attaque Fermat qui permet d'obtenir la clé privée:
 
 ```bash
-RsaCtfTool.py --createpub -n 25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784406918290641249515082189298559149176184502808489120072844992687392807287776735971418347270261896375014971824691165077613379859095700097330459748808428401797429100642458691817195118746121515172654632282216870038352484922422622979684865170307405907272815653581732377164114195025335694039872221524699156538352092782201392513118326772302632498764753996118057437198905106508696675497143847180616766425109043955104189270381382844602871223783458512671511503420521749067165952916834014926827585314522687939452292676577212513301 -e 65537
-RsaCtfTool.py --publickey public.key --uncipherfile final.txt --private
-```
+RsaCtfTool.py --createpub -n 25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784406918290641249515082189298559149176184502808489120072844992687392807287776735971418347270261896375014971824691165077613379859095700097330459748808428401797429100642458691817195118746121515172654632282216870038352484922422622979684865170307405907272815653581732377164114195025335694039872221524699156538352092782201392513118326772302632498764753996118057437198905106508696675497143847180616766425109043955104189270381382844602871223783458512671511503420521749067165952916834014926827585314522687939452292676577212513301 -e 65537 > public.key
+
+RsaCtfTool.py --publickey public.key --private > private.key
 
 openssl rsautl -decrypt -inkey private.key -in final.txt
+```
 
-`final.txt` décrypté:
+
+`final.txt` décrypté :
 ```
 IVQDQT NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD
 ```
 
-Selon les indices et le foulard, on devrait avoir:
+### Etape 2: Machine Enigma
+
+#### Programme
+
+[enigma.c](https://gist.github.com/5167acdc0c75ca909f372a008e0f114c) est un programme en C pour coder/décoder Enigma (initialement écrit pour résoudre le challenge [Machine Enigma](https://www.root-me.org/fr/Challenges/Cryptanalyse/Machine-Enigma)).
+
+Ou le module Python [pyenigma](https://pypi.org/project/pyenigma/), ou [cryptii](https://cryptii.com/pipes/enigma-machine), ou [dcode.fr](https://www.dcode.fr/chiffre-machine-enigma), etc.
+
+#### Observation du texte
+
+Le texte est composé de 6 lettres, puis 26 en partie centrale et enfin, 8 lettres.
+
+Les 6 premières lettres correspondent peut-être à une clé chiffreur (ou [cillies](https://fr.wikipedia.org/wiki/Enigma_(machine)#Préparation_de_la_machine)). Ce sont trois lettres choisies par le chiffreur, transmises deux fois. Puis l'opérateur repositionne les rotors sur ces 3 lettres.
+
+Les 8 dernières lettres, au nom de l'agent (REJEWSKI) (instructions du foulard).
+
+#### Configuration
+
+Selon les indices et les instructions du foulard, on a :
 * *Grundstellung* (« position initiale des rotors ») : `MER` (foulard)
 * *Ringstellung* (« positionnement de l'anneau ») : `REJ` (foulard)
 * *Walzenlage* (« rotor »): I III V  (foulard: Uniquement les impairs en ordre croissant)
-* *Steckerverbindungen*  (« tableau de connexion, plugboard ») : `BA EZ` (deux lettres un espace deux lettres)
-* *Umkehrwalze* (« réflecteur, reflector ») : `B` (peut-être, cf. foulard...)
+* *Steckerverbindungen*  (« tableau de connexion, plugboard ») : `BE AZ` (deux lettres un espace deux lettres, indice)
+* *Umkehrwalze* (« réflecteur, reflector ») : `B` (non mentionné sur le foulard)
 
-* texte illisible 1 = `BA EZ`  (indice Antoine Rossignol)
-* texte illisible 2 = ?
-* texte illisible 3 = B??
+#### Les textes illisibles
 
-`ZFGZFG CMFQJLFJDTMORQGNFBAQMUCZQY  RYSNOOUR``
+* texte illisible 1 = `BE AZ`  (indice Antoine Rossignol `b a:e z`, et non `BA EZ` !)
+* texte illisible 2 = ?   (certainement clé opérateur, je ne connais pas le terme allemand)
+* texte illisible 3 = B??  (certainement la clé opérateur)
 
-* essai B MER-REJ <tous les rotors> "BA EZ"
-* essai B MER-REJ I III V + tous les plugboards à 2 connexions
+#### Clé opérateur (ou clé chiffreur)
+
+On utilise le programme une première fois pour savoir la clé chiffreur:
+```bash
+$ ./enigma B MER-REJ I III V "BE AZ" "IVQDQT NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD"
+```
+```
+BFGBFG CMVEJLFJGTMORQGNFZNQMUCPQY  RYSNOOUR
+```
+
+La clé chiffreur est donc `BFG` ([référence](https://en.wikipedia.org/wiki/BFG_(weapon)) amusante et certainement non fortuite 😂).
+
+#### Décodage du message
+```bash
+./enigma B BFG-REJ I III V "BE AZ" "NHABMPSVBYYUCJIYMJBRDWXAXP  THYVCROD"
+```
+```
+LESSANGLOTSLONGSDESVIOLONS  WJVDLOIT
+```
+
+Bingo, sans aucun doute possible, le flag est `LESSANGLOTSLONGSDESVIOLONS`.
+
+#### La signature
+
+Curieusement, le nom est codé avec la même position initiale `BFG` :
+```
+./enigma B BFG-REJ I III V "BE AZ" "THYVCROD"
+```
+```
+REJEWSKI
+```
+
+Ce qui ne correspond pas tout à fait aux usages d'Enigma pour un même message.
+
+
+### Notes
+
+La localisation [GPS](https://www.google.com/maps/place/47°34'00.0%22N+2°01'39.0%22W/@47.5666703,-2.0296887,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d47.5666667!4d-2.0275) correspond à un terrain au milieu d'un triangle Vannes-Nantes-Rennes, proche du village de Frégéac. La référence reste mystérieuse (mais il n'y a peut-être aucune référence à trouver).
+
+
+## Flag
+
+`DGSESIEE{LESSANGLOTSLONGSDESVIOLONS}`
