@@ -3,19 +3,15 @@
 import zlib
 from pathlib import Path
 import os
-
-s = Path("message.pdf").read_bytes()
-s = s[0x99A + 0 :]
+import itertools
 
 
-for d in range(0, 1):
+data = Path("message.pdf").read_bytes()
+data = data[0x99A :]
+Path(f"data").write_bytes(data)
 
-    s = bytes([(b + d) % 256 for b in s])
+flag = [91,48,93,97,97,57,51,56,97,49,54]
 
-    Path("data").write_bytes(s)
-    os.system("file data")
-    continue
 
-    # ne fonctionne pas ...
-    d = zlib.decompress(s)
-    print(d)
+s = bytes([(b ^ (mask+4)) for b, mask in zip(data, itertools.cycle(flag))])
+Path(f"data.xor").write_bytes(s)

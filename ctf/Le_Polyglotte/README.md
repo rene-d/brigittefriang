@@ -41,7 +41,7 @@ dans le PDF:
 dans le code HTML embeddé dans le pdf
 
 ```py
-"".join(map(chr,[91,48,93,97,97,57,51,56,97,49,54])
+"".join(map(chr,[91,48,93,97,97,57,51,56,97,49,54]))
 ```
 résultat: `[0]aa938a16`
 
@@ -79,3 +79,11 @@ Linuz (2020-10-28 20:00:06)
 
 Brigitte Friang Admin (2020-10-28 22:41:56)
 >Merci ! Content que ça vous ai plu !
+
+
+
+
+
+## recherche
+https://truepolyglot.hackade.org
+https://github.com/corkami/pocs

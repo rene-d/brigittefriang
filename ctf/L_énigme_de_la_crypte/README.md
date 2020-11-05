@@ -146,11 +146,13 @@ Ce qui ne correspond pas tout à fait aux usages d'Enigma pour un même message.
 
 ### Notes
 
+Le titre du challenge est un jeu de mot autour de « cryptage » et « Enigma ».
+
 Le nom de la mission est inspiré par le créateur d'Enigma, [Arthur Scherbius](https://fr.wikipedia.org/wiki/Arthur_Scherbius).
 
 [Marian Rejewski](https://fr.wikipedia.org/wiki/Marian_Rejewski) est un mathématicien et cryptologue polonais à l'origine du cassage du chiffrement Enigma.
 
-[Les sanglots longs des violons de l'automne](https://www.defense.gouv.fr/actualites/articles/le-saviez-vous-les-sanglots-longs-des-violons-de-l-automne) est un message radio diffusé par Radio Londres pour annoncer le débarquement des troupes alliées.
+[Les sanglots longs des violons de l'automne](https://www.defense.gouv.fr/actualites/articles/le-saviez-vous-les-sanglots-longs-des-violons-de-l-automne) est un message radio diffusé par Radio Londres le 1er juin 1944 pour annoncer le débarquement des troupes alliées.
 
 La localisation [GPS](https://www.google.com/maps/place/47°34'00.0%22N+2°01'39.0%22W/@47.5666703,-2.0296887,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d47.5666667!4d-2.0275) correspond à un terrain au milieu d'un triangle Vannes-Nantes-Rennes, proche du village de Fégréac. La référence reste mystérieuse (mais il n'y a peut-être aucune référence à trouver).
 
