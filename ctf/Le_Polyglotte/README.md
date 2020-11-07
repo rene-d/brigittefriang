@@ -25,6 +25,14 @@ https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/pdf_reference_archives
 ## WIP
 
 
+### secretz.zip
+
+```bash
+fcrackzip secrets.zip -D -p rockyou.txt -u
+unzip -P finenuke secrets.zip
+```
+
+
 dans le PDF:
 
 ```py
