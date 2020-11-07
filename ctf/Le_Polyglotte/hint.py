@@ -4,13 +4,16 @@ from Crypto.Cipher import AES, DES3
 from pathlib import Path
 
 
+Path("tmp").mkdir(exist_ok=True, parents=True)
+
+
 data = Path("message.pdf").read_bytes()
 data = data[0x99A:]
 
-data = bytes([(b + 4) % 256 for b in data])
-Path(f"data").write_bytes(data)
+data = data[6:]  # ignore les 6 \x06
+data = bytes([(b + 4) % 256 for b in data])  # décalage comme le flag javascript
 
-
+# cf. info.txt
 key = b"\xce]`^+5w#\x96\xbbsa\x14\xa7\x0ei"
 iv = b"\xc4\xa7\x1e\xa6\xc7\xe0\xfc\x82"
 
@@ -22,27 +25,25 @@ def p(file, algo=DES3, mode=None):
 
     _iv = iv
     if algo == AES:
+        # il faut 16 bytes pour l'IV en AES
         _iv += b"\x00\x00\x00\x00\x00\x00\x00\x00"
 
     if not mode:
         mode = algo.MODE_CBC
 
-    with open(file, "rb") as f:
-        d = f.read()
+    d = Path(file).read_bytes()
 
     d = d[:0x10000]
 
     enc = algo.new(key, mode, _iv)
-    with open(f"{file}.{mode}.encrypted", "wb") as f:
-        z = enc.encrypt(d)
-        print(z[:32])
-        f.write(z)
+    z = enc.encrypt(d)
+    print(file, "enc", z[:32])
+    Path(f"tmp/{file}.{mode}.encrypted").write_bytes(z)
 
     dec = algo.new(key, mode, _iv)
-    with open(f"{file}.{mode}.decrypted", "wb") as f:
-        z = dec.decrypt(d)
-        print(z[:32])
-        f.write(z)
+    z = dec.decrypt(d)
+    print(file, "dec", z[:32])
+    Path(f"tmp/{file}.{mode}.decrypted").write_bytes(z)
 
 
 # p("message.pdf", DES3)
