@@ -95,3 +95,7 @@ Brigitte Friang Admin (2020-10-28 22:41:56)
 ## recherche
 https://truepolyglot.hackade.org
 https://github.com/corkami/pocs
+https://www.root-me.org/fr/Challenges/Steganographie/Angecryption
+
+https://github.com/indrora/corkami/tree/master/src/angecryption
+https://github.com/Qtty/AngeCryption
