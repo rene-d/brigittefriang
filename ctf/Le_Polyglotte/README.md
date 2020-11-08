@@ -138,7 +138,7 @@ et le nom [Ange Albertini](https://github.com/corkami) connu justement pour ses 
 
 ![Blowfish](blowfish.png)
 
-On va donc appliquer le chiffrage Blowfish à `messge.pdf`. Après quelques tâtonnements, on trouve la bonne combinaison:
+On va donc appliquer le chiffrage Blowfish à `message.pdf`. Après quelques tâtonnements, on trouve la bonne combinaison:
 ```python
 #!/usr/bin/env python3
 
@@ -312,6 +312,7 @@ pwd = chr(c) + pwd
 print(pwd)
 ```
 
+Ce qui donne:
 ```
 [2]e3c4d24
 ```
