@@ -19,27 +19,28 @@ Le flag est de la forme : DGSESIEE{x} avec x un hash que vous trouverez
 
 ## Solution
 
+Le titre du challenge évoque vraisemblablement la technique d'imbrication de fichiers de formats différents telle qu'elle a été décrite lors d'une conférence [SSTIC 2013](https://www.sstic.org/media/SSTIC2013/SSTIC-actes/polyglottes_binaires_et_implications/SSTIC2013-Article-polyglottes_binaires_et_implications-albertini.pdf).
 
-### Le documennt PDF
+### Le document PDF
 
-A a lecture de l'énoncé du challenge, `message.pdf` est *de facto* le fichier qui semble le plus intéressant.
+A la lecture de l'énoncé du challenge, `message.pdf` est *de facto* le fichier qui semble le plus intéressant.
 
-Généralement, il est de bon ton de ne pas ouvrir directement un .pdf suspect avec un lecteur, mais `a minima` avec un éditeur de texte comme [vim](https://www.vim.org).
+Généralement, il est de bon ton de ne pas ouvrir directement un .pdf suspect avec un lecteur, mais `a minima` avec un éditeur de texte comme [vim](https://www.vim.org) ou [hexdump](https://man7.org/linux/man-pages/man1/hexdump.1.html).
 
-On remarque de suite qu'il n'est pas « normal «. L'entête n'est pas au début (il y a un `<`en trop), il y a du code HTML et un bloc binaire à la fin en dehors des objets PDF.
+On remarque de suite qu'il n'est pas « normal «. L'entête n'est pas au tout début du fichier (il y a un `<`en trop), il y a du code HTML et un bloc binaire obscur à la fin en dehors des objets PDF. D'ailleurs, il peut s'ouvrir avec un navigateur web, comme Firefox.
 
 Pour rappel, les PDF sont constitués (format [PDF 1.4](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/pdf_reference_archives/PDFReference.pdf)):
-- d'un entête `%PDF-1.2` (soit au début, soit dans les 1024 premiers octets selon le logiciel)
-- d'objets (`n 0 obj … endobj`)
+- d'un entête `%PDF-1.𝑥` (soit au début, soit dans les 1024 premiers octets selon le logiciel)
+- d'objets (`𝒏 0 obj … endobj`)
 - d'un trailer (`trailer<<…>>`)
 
-En dépit de cela, il peut s'afficher plus ou moins bien selon le logiciel utilisé et le degré de laxisme du lecteur PDF. Mais ça ne nous inéresse pas ici.
+En dépit de cela, il peut s'afficher plus ou moins bien selon le du lecteur PDF utilisé et son degré de laxisme. Mais ça ne nous intéresse pas ici.
 
 #### Les textes
 
-Les objets contiennent plusieurs types de données, et on remarque rapidement des suites d'octets en hexa. Ca tombe bien, ces suites sont dans des sections `BT … ET` (*Begin text* … *End text*). De plus, il y a la commande `Tj` (*Text showing*) qui demande l'affichage.
+Les objets contiennent plusieurs types de données, et on remarque rapidement des suites d'octets en hexadécimal. Cela tombe bien, ces suites sont dans des sections `BT … ET` (*Begin text* … *End text*). De plus, il y a la commande `Tj` (*Text showing*) qui demande l'affichage.
 
-![pdfobject7](pdfobject7.png)
+![pdfobject7](./pdfobject7.png)
 
 Quelques lignes de Python décodent rapidement ces textes:
 ```python
@@ -59,7 +60,7 @@ for m in re.findall(rb"<((?:[0-9a-f]{2} ?)+)> Tj", pdf):
     print()
 ```
 
-Deux objets PDF contiennent du texte.
+Deux objets PDF contiennent du texte de cette manière, en plus de « Top Secret ».
 
 ##### objet 9
 
@@ -71,7 +72,7 @@ Chaque partie de l information est identifiee par un nombre par ex :
 [0]ae7bca8e correspond a la première partie de l information qu il faut concatener au reste.
 ```
 
-C'est en quelquesorte le « mode d'emploi » du document et le but du challenge: il faut rechercher des textes du genre `[n]1234abcd`.
+C'est en quelque sorte le « mode d'emploi » du document et le but du challenge: il faut rechercher des textes du genre `[𝒏]1234abcd`.
 
 ##### objet 7
 
@@ -87,9 +88,9 @@ Pas d'autre texte, il est temps d'analyser le HTML.
 
 #### Partie HTML
 
-Là aussi, pas besoin d'ouvrir le HTML dans un navigateur, le code JavaScript est très simple. Il y en a une partie au début et la suite un peu plus bas. Le script affiche dans une *popup* un texte à partir du code ASCII des caractères.
+Là aussi, pas de nécessité d'ouvrir le HTML dans un navigateur, le code JavaScript est très simple. Il y en a une partie au début et la suite un peu plus bas. Le script affiche dans une *popup* un texte à partir du code [ASCII](https://fr.wikibooks.org/wiki/Les_ASCII_de_0_à_127/La_table_ASCII) des caractères.
 
-![htmlalert](htmlalert.png)
+![htmlalert](./htmlalert.png)
 
 
 ```html
@@ -113,12 +114,14 @@ Et on obtient:
 [0]aa938a16
 ```
 
-C'est donc la première partie du flag. Le `+4` ne sert à rien d'autre que perturber la compréhension. Pas d'indication pour décoder le bloc binaire, il faut exploiter les informations de l'archive `secrets.zip`.
+C'est donc la première partie du flag. Le `+4` ne sert à rien d'autre que perturber la compréhension.
+
+Pas d'indication pour décoder le bloc binaire, il faut à présent exploiter les informations de l'archive `secrets.zip`.
 
 
 ### L'archive secrets.zip
 
-L'archive est protégée par mot de passe. Toute tentative de trouver le mot de passe à partir de `message.pdf` échouent (les portions du flag, Top Secret, etc.).
+L'archive est protégée par mot de passe. Toute tentative de trouver le mot de passe à partir de `message.pdf` échoue (les portions du flag, Top Secret, etc.).
 
 Et si le mot de passe était crackable ? On va utiliser [frackzip](http://manpages.ubuntu.com/manpages/trusty/man1/fcrackzip.1.html) et le dictionnaire `rockyou.txt` (dictionnaire souvent utilisé pour les CTF).
 
@@ -136,7 +139,7 @@ et le nom [Ange Albertini](https://github.com/corkami) connu justement pour ses 
 
 `hint.png` est « juste » le dessin d'un [poisson-globe](https://fr.wikipedia.org/wiki/Poisson-globe), appelé *blowfish* en anglais. Quelques recherches sur de la stégano dans le fichier restent infructueuses. Le *hint* est juste [Blowfish](https://fr.wikipedia.org/wiki/Blowfish).
 
-![Blowfish](blowfish.png)
+![Blowfish](./blowfish.png)
 
 On va donc appliquer le chiffrage Blowfish à `message.pdf`. Après quelques tâtonnements, on trouve la bonne combinaison:
 ```python
@@ -159,7 +162,7 @@ Le fichier `message.pdf` déchiffré avec l'algorithme Blowfish donne donc une J
 
 De même que le PDF, l'image ne s'ouvre pas avec tous les logiciels: elle a été trafiquée. C'est justement le processus [Angecryption](http://repository.root-me.org/Stéganographie/EN%20-%2031C3%20-%20Funky%20File%20Formats%20-%20Ange%20Albertini.pdf) d'Ange Albertini qui permet de masquer des documents dans d'autres moyennant un chiffrage AES, Blowfish, TripleDES, etc.
 
-![nuke](nuke.png)
+![nuke](./nuke.png)
 
 Cependant, une analyse rapide avec `strings` montre qu'il ne faut pas chercher dans le JPEG: il y a autre chose accroché à l'image, et en l'occurence c'est un binaire ELF.
 
@@ -190,9 +193,9 @@ root:/work$ ldd nuke.bin
 	/lib64/ld-linux-x86-64.so.2 (0x00007f645422a000)
 ```
 
-L'intuition (plus le contexte et la difficuté relative du challenge) permet de penser raisonnablement que le programme a été écrit en C, il y a les symboles, donc il se décompilera bien.
+L'intuition (plus le contexte et la difficuté relative du challenge) permet de penser raisonnablement que le programme a été écrit en C. Il y a les symboles, donc il se décompilera bien.
 
-Un petit coup de [Ghidra](https://ghidra-sre.org) et on obtient une fonction `main` au contenu explicite. Un petit travail de renommage et type et on obtient un code parfaitement compilable: [nuke.c](./nuke.c).
+Un petit coup de [Ghidra](https://ghidra-sre.org) et on obtient une fonction `main` au contenu explicite et lisible. Un petit travail de renommage et de typage, et on obtient un code parfaitement compilable: [nuke.c](.//nuke.c).
 
 Nota: le programme a été compilé avec l'option `-fstack-protector` pour activer le [SSP](https://fr.wikipedia.org/wiki/Stack-Smashing_Protector).
 
@@ -281,7 +284,7 @@ int checkpassword(char *param_1)
 
 La fonction `checkpassword` ne fait rien avec le paramètre. Tant mieux. En sortie, la variable `local_78` contient les lettres `VVF@NNFOMMB`. C'était peut-être une tentative avortée de complexifier le challenge.
 
-La vérification du `password` dans `main` est une série de comparaisons avec XOR en commençant par une comparaison avec `0x34` pour le 10e caractère, soit `'4'`. En partant de la fin, on reconstruit la chaîne qui permet d'afficher le « Bravo ».
+La vérification du `password` dans `main` est une série de comparaisons avec XOR entre caractères successifs en commençant par une comparaison entre `0x34` et le 10e caractère, soit `'4'`. En partant de la fin, on reconstruit la chaîne qui permet d'afficher le « Bravo ».
 
 ```python
 #!/usr/bin/env python3
