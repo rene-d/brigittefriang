@@ -27,10 +27,11 @@ Résultat:
 221 x 7
 ```
 
-Il faut extrait le /prime1/ de la clé privée pour faire apparaître un motif, qui est la flag.
+Il faut extrait le *prime1* de la clé privée pour faire apparaître un motif, qui est la flag.
 
 ![prime1](prime1.png)
 
+L'indication contenue dans `EVIL-FILE.txt` donne à peu près la taille de l'affichage à utiliser pour voir le flag dans les chiffres du *prime1*. C'était plutôt 222 colonnes d'ailleurs que 221.
 
 ## Flag
 `AD26E7D346A2CA64`
