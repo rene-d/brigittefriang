@@ -39,6 +39,8 @@ En dépit de cela, il peut s'afficher plus ou moins bien selon le logiciel utili
 
 Les objets contiennent plusieurs types de données, et on remarque rapidement des suites d'octets en hexa. Ca tombe bien, ces suites sont dans des sections `BT … ET` (*Begin text* … *End text*). De plus, il y a la commande `Tj` (*Text showing*) qui demande l'affichage.
 
+![pdfobject7](pdfobject7.png)
+
 Quelques lignes de Python décodent rapidement ces textes:
 ```python
 #!/usr/bin/env python3
@@ -63,7 +65,10 @@ Deux objets PDF contiennent du texte.
 
 Le texte se décode ainsi:
 ```
-Ce document concerne l operation soleil atomique.\nCette operation est strictement confidentielle et ne doit en aucun cas être devoilee. \nLes informations sur l operation sont disseminées dans ce fichier.\nChaque partie de l information est identifiee par un nombre par ex : \n[0]ae7bca8e correspond a la première partie de l information qu il faut concatener au reste.
+Ce document concerne l operation soleil atomique.
+Cette operation est strictement confidentielle et ne doit en aucun cas être devoilee. Les informations sur l operation sont disseminées dans ce fichier.
+Chaque partie de l information est identifiee par un nombre par ex :
+[0]ae7bca8e correspond a la première partie de l information qu il faut concatener au reste.
 ```
 
 C'est en quelquesorte le « mode d'emploi » du document et le but du challenge: il faut rechercher des textes du genre `[n]1234abcd`.
@@ -83,6 +88,9 @@ Pas d'autre texte, il est temps d'analyser le HTML.
 #### Partie HTML
 
 Là aussi, pas besoin d'ouvrir le HTML dans un navigateur, le code JavaScript est très simple. Il y en a une partie au début et la suite un peu plus bas. Le script affiche dans une *popup* un texte à partir du code ASCII des caractères.
+
+![htmlalert](htmlalert.png)
+
 
 ```html
 <script>var flag = [91,48,93,97,97,57,51,56,97,49,54];</script>
