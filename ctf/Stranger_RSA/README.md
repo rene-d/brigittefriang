@@ -29,6 +29,8 @@ Résultat:
 
 Il faut extrait le /prime1/ de la clé privée pour faire apparaître un motif, qui est la flag.
 
+![prime1](prime1.png)
+
 
 ## Flag
 `AD26E7D346A2CA64`
