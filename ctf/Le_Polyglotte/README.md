@@ -336,7 +336,9 @@ Les quatre parties du flag sont:
 [3]4037402d4
 ```
 
-Mis bout à bout, on obtient : `aa938a164d862d5ae3c4d244037402d4`. D'où le flag de validation.
+Mises bout à bout, on obtient : `aa938a164d862d5ae3c4d244037402d4`. D'où le flag de validation.
+
+Le script Python [nuke.py](./nuke.py) reprend toutes les étapes ci-dessus.
 
 ## Flag
 
