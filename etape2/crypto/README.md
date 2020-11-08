@@ -24,12 +24,15 @@
 
 > Arrêtez votre charme 42. Nous cherchons une information capitale qui est certainement cachée dans archive_chiffree. Si vous trouvez quelque chose envoyez-moi un message !
 
+
 ## Solution
 
 ### étape 1
+
 `layout.pdf` est protégé par un mot de passe, l'autre PDF sous-entend qu'il faut contacter Eve Descartes pour connaître le mot de passe du premier.
 
 L'envoi d'un mail provoque une réponse automatique avec un numéro de téléphone. Et le téléphone donne un message en Morse qu'on décode :
+
 ```
 R ▄  ▄▄▄  ▄
 E ▄
@@ -43,17 +46,17 @@ C ▄▄▄  ▄  ▄▄▄  ▄
 E ▄
 ```
 
-Le mot de passe est donc: `resistance` (en miniscule)
+Le mot de passe est donc: `resistance` (en minuscule).
 
 ### étape 2
 
-`layout.pdf` contient comme annoncé la photo d'un circuit avec 256 eFuses. 
+`layout.pdf` contient comme annoncé la photo d'un circuit avec 256 eFuses.
 
 En notant 0 un fuse et 1 l'ouverture, on obtient une série de bits. Avec le MSB en haut à gauche, cela donne:
 ```
 100000101000101010100110010000000110010001101010011011000100000010001010100001101000010001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000
 ```
-soit, en hexa: 
+soit, en hexa:
 ```
 4145532032353620454342202020202020202020202020202020202020202020
 ```
@@ -62,7 +65,7 @@ et en ASCII (ˍ = espace) :
 AESˍ256ˍECBˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍ
 ```
 
-Ainsi le codage de `archive_chiffree` est [AES 256 ECB](https://fr.wikipedia.org/wiki/Mode_d%27opération_(cryptographie)#Dictionnaire_de_codes_:_«_Electronic_codebook_»_(ECB)).
+Ainsi le chiffrage de `archive_chiffree` est [AES 256 ECB](https://fr.wikipedia.org/wiki/Mode_d%27opération_(cryptographie)#Dictionnaire_de_codes_:_«_Electronic_codebook_»_(ECB)).
 
 Pas de IV pour ECB, juste une clé de 256 bits.
 ```bash
@@ -71,7 +74,7 @@ openssl aes-256-ecb -d -in archive_chiffree -K 414553203235362045434220202020202
 
 ### étape 3
 
-Il y a deux fichiers dans l'archive : `archive/code_acces.pdf` et `archive/message.pdf` . Le premier est protégé par mot de passe, le deuxième contient un problème de math basé sur le [théorème des restes chinois](https://fr.wikipedia.org/wiki/Th%C3%A9or%C3%A8me_des_restes_chinois):
+Il y a deux fichiers dans l'archive : `archive/code_acces.pdf` et `archive/message.pdf` . Le premier PDF est protégé par mot de passe, le deuxième contient un problème de math basé sur le [théorème des restes chinois](https://fr.wikipedia.org/wiki/Th%C3%A9or%C3%A8me_des_restes_chinois):
 
 * `x³ ≡ 573 mod 8387`
 * `x³ ≡ 98 mod 9613`
@@ -90,7 +93,7 @@ Le problème (toujours de math) consiste à trouver l'inverse dans le groupe gé
 
 http://www.cs.utsa.edu/~wagner/laws/FFM.html
 
-mot de passe final : `b a:e z`
+Mot de passe final : `b a:e z`
 
 
 Le dialogue de fin donne le lien vers le site des CTF:

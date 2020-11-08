@@ -20,10 +20,10 @@ Il propose 5 interlocuteurs: le chef et 4 missions.
 
 *Armand Richelieu*
 > Nous avons de bonnes raisons de penser qu'Evil Gouv passera à l'action sous peu. C'est inacceptable 42 ! Il faut agir au plus vite, j'ai alors décidé de contacter notre meilleur agent : vous !
+
 > Cette opération est top secrète ! Nous utiliserons le nom de code Brigitte Friang, grande résistante de la seconde guerre mondiale
+
 > Nos meilleurs agents vont entrer en contact avec vous, ils ont plusieurs pistes intéressantes
 
 *Agent 42*
 > Très bien, je commence immédiatement
-
-

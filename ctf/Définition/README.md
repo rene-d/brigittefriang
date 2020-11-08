@@ -16,6 +16,7 @@ Le flag est de la forme : DGSESIEE{x} avec x un hash
 
 ## Solution
 
+Le collègue attend l'[heure UNIX](https://fr.wikipedia.org/wiki/Heure_Unix) en secondes.
 ```bash
 date +%s | nc challengecybersec.fr 6660
 ```

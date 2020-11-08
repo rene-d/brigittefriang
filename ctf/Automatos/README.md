@@ -1,6 +1,6 @@
 # Automatos
 
-[lien](https://ctf.challengecybersec.fr/7a144cdc500b28e80cf760d60aca2ed3/challenge-detail.php?chall=24)
+[Lien](https://ctf.challengecybersec.fr/7a144cdc500b28e80cf760d60aca2ed3/challenge-detail.php?chall=24)
 
 Category : Stegano
 
@@ -16,5 +16,3 @@ Le flag est juste une chaîne de caractères
 
 
 ## WIP
-
-

@@ -15,6 +15,8 @@ Le flag est de la forme : DGSESIEE{x} avec x la solution
 
 ## Solution
 
+C'est le problème du [logarithme discret](https://fr.wikipedia.org/wiki/Logarithme_discret) (DLP).
+
 ### avec PARI/GP
 
 [PARI/GP](https://pari.math.u-bordeaux.fr)
@@ -29,7 +31,6 @@ znlog(Mod(y,p), Mod(g, p), [p-1, factor(p-1)])
 
 résultat: 697873717765
 
-
 ### avec Sage Math
 
 `docker run --rm -it sagemath/sagemath:latest`
@@ -41,4 +42,6 @@ sage: p=207419578609033051199924683129295125643
 sage: mod(y,p).log(g)
 ```
 
-Flag: `DGSESIEE{697873717765}`
+## Flag
+
+`DGSESIEE{697873717765}`

@@ -1,6 +1,6 @@
 # Sous l'océan
 
-[lien](https://ctf.challengecybersec.fr/7a144cdc500b28e80cf760d60aca2ed3/challenge-detail.php?chall=34)
+[Lien](https://ctf.challengecybersec.fr/7a144cdc500b28e80cf760d60aca2ed3/challenge-detail.php?chall=34)
 
 Category : Forensic
 
