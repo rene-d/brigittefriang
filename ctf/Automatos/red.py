@@ -2,42 +2,34 @@
 
 from PIL import Image
 
-separate = Image.new("RGB", (5 * 21 - 1, 20), (0, 255, 255))
-px_separate = separate.load()
 
+print(" ", "".join(f"{i:2d} " for i in range(1, 21)))
 
-for n, bit in enumerate([16, 8, 4, 2, 1]):
+im = Image.open("brigitte.png")
+pixels = im.load()
 
-    im = Image.open("brigitte.png")
-    pixels = im.load()
+lettres = []
 
-    bits = ""
-    for y in range(384):
-        for x in range(682):
+for y in range(200, 220):
+    print(f"{y-200+1:2d}", end="")
+    p, c = 0, "."
+    for x in range(500, 520):
+        r, g, b = pixels[x, y]
+        r = r & 31
+        if r != 0:
+            p = x - 500
+            c = chr(r + 64)
+            print(f" {c} ", end="")
+        else:
+            print(" . ", end="")
+    print()
+    lettres.append((p, c))
 
-            if 500 <= x < 520 and 200 <= y < 220:
-                r, g, b = pixels[x, y]
-
-                if r & bit == bit:
-                    c = (255, 0, 0)
-                else:
-                    c = (0, 0, 0)
-
-                px_separate[(x - 500) + n * 21, y - 200] = c
-
-                if n == 0:
-                    # print(f"{r&31:3d}", end= " ")
-                    if (r & 31) != 0:
-                        c = chr(64 + (r & 31))
-                        print(c, end=" ")
-                    else:
-                        print(".", end=" ")
-                    # r=r&31
-                    # print(f"{r:05b}", end="")
-
-        if 200 <= y < 220 and n == 0:
-            print()
-
-separate.save(f"red.png")
-
+print()
+p = 0
+while True:
+    p, c = lettres[p]
+    if c == ".":
+        break
+    print(c, end="")
 print()
