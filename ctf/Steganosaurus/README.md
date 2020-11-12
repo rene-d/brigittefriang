@@ -12,7 +12,7 @@ Nos agents ont trouvé dans le camion de livraison une clef USB. Nous vous trans
 
 Le flag est de la forme DGSEESIEE{x} avec x une chaine de caractères. (Attention au DGEESIEE, une erreur de typo s'est glissée dans le flag)
 
-message (SHA256=3889febebd6b1d35c057c3ba3f6f722798f029d6d0321b484305922a3d55d4d8) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/message
+- message (SHA256=3889febebd6b1d35c057c3ba3f6f722798f029d6d0321b484305922a3d55d4d8) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/message
 
 ## WIP
 
