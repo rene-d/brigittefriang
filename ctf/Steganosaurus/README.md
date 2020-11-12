@@ -16,4 +16,20 @@ message (SHA256=3889febebd6b1d35c057c3ba3f6f722798f029d6d0321b484305922a3d55d4d8
 
 ## WIP
 
+Extraction des fichiers:
+```bash
+fls message
+icat message 6 > readme
+icat message 9 > steganausorus.apk
+icat message 4 > flag.png
+```
+
+Analyse `classes.dex`:
+```
+apt install dex2jar
+d2j-dex2jar classes.dex
+# install jd-cli from https://github.com/kwart/jd-cli
+jd-cli classes-dex2jar.jar
+```
+
 ## Flag
