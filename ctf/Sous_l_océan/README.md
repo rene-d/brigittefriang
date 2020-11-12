@@ -19,6 +19,9 @@ Le flag est de la forme DGSESIEE{x} avec x une chaine de caractères
 
 Il faut chercher `Custom Location` dans la section `DUMP OF SERVICE location:`. Il y a des coordonnées GPS qui pointent dans l'océan. Le message est caché dans le dessin formé par les positions.
 
+Un programme Python avec [Turtle](https://docs.python.org/library/turtle.html) va le tracer.
+
+![flag](./flag.png)
 
 ## Flag
 

@@ -36,7 +36,7 @@ for line in open("memdump.txt"):
 
 gpx_track.segments.append(gpx_segment)
 
-Path("track.gpx").write_text(gpx.to_xml())
+# Path("track.gpx").write_text(gpx.to_xml())
 
 
 llx = min(lat for lat, _ in points)
