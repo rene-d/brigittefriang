@@ -17,6 +17,7 @@ Le challenge se déroule en trois phases:
 | [Alphonse Bertillon](etape2/forensic/README.md) | forensic | | Challenge d'Alphonse Bertillon du Service Forensic |
 | [Alone Muks](ctf/Alone_Musk/README.md) | Pwn | 100 | élevation de privilèges |
 | [ASCII UART](ctf/ASCII_UART/README.md) | Hardware | 100 | |
+| [Automatos](ctf/Automatos/README.md) | Stegano | 300 | observation du rouge |
 | [ChatBot](ctf/ChatBot/README.md) | Web | 100 | intrusion intranet |
 | [Définition](ctf/Définition/README.md) | Misc | 50 | UNIX |
 | [Keypad Sniffer](ctf/Keypad_Sniffer/README.md) | Hardware | 100 | |
@@ -25,6 +26,7 @@ Le challenge se déroule en trois phases:
 | [Le Polyglotte](ctf/Le_Polyglotte/README.md) | Stegano | 150 | fichiers trafiqués, Blowfish, reverse |
 | [Sous l'océan](ctf/Sous_l_océan/README.md) | forensic | 50 | recherche dans fichier |
 | [Stranger RSA](ctf/Stranger_RSA/README.md) | crypto | 200 | RSA |
+| [VX Elliptique](ctf/VX_Elliptique/README.md) | crypto | 250 | (Sage)Math |
 
 
 ## Présentation sur le site de la DGSE
