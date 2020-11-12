@@ -13,17 +13,17 @@ Nous avons intercepté 2 fichiers (VX_elliptique.pdf et livres_Friang.pdf) émis
 Le flag est de la forme DGSESIEE{x} avec x le code d'identification
 
 - VX_elliptique.pdf (SHA256=7995fc6529494734bae9e2a0b1800632bf9ebd41cbfab19ce23d834eabcf7523) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/VX_elliptique.pdf
-l- ivres_Friang.pdf (SHA256=222a463aeb09ef4c0599b9448184e616462459baea327827469bc7b0dd738b75) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/livres_Friang.pdf
+- livres_Friang.pdf (SHA256=222a463aeb09ef4c0599b9448184e616462459baea327827469bc7b0dd738b75) : http://challengecybersec.fr/d3d2bf6b74ec26fdb57f76171c36c8fa/livres_Friang.pdf
 
 ## Solution
 
 Le problème revient à :
 
-1. trouver l'équation de la courbe elliptique à partir de P => Curve25519
-2. trouver les racines des polynomes du troisième degré dans GF(n) => merci SageMath
+1. trouver l'équation de la courbe elliptique à partir de P => [Curve25519](https://fr.wikipedia.org/wiki/Curve25519)
+2. trouver les racines des polynomes du troisième degré dans GF(n) => merci [SageMath](https://www.sagemath.org/)
 3. appliquer le théorème des restes chinois pour trouver z => merci SageMath
 
-Il y a trois racines pour x1. La première est la bonne.
+Il y a trois racines possibles pour x₁. La première est la bonne. Et une seule pour x₂.
 
 ```
 z = 1626912004825687681266928944940137740110044614947501502667974700957265876831665835249437745227202257555252761324145945972681589648893511804029315415851794
