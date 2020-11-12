@@ -1,0 +1,19 @@
+ 82615164      4 drwxr-xr-x   1 root     root         4096 Nov  1 10:52 .
+ 82615165      4 dr-xr-xr-x   1 root     root         4096 Nov  1 10:52 ./user
+  5510566      4 -r--r--r--   1 user     user          220 Apr 18  2019 ./user/.bash_logout
+  5510568      4 -r--r--r--   1 user     user         3565 Nov  1 10:52 ./user/.bashrc
+  5510569      4 -r--r--r--   1 user     user          807 Apr 18  2019 ./user/.profile
+ 82615192      4 drwxr-xr-x   1 user     user         4096 Nov 12 22:49 ./user/bin
+  5510571      0 lrwxrwxrwx   1 root     root            9 Nov  1 10:52 ./user/bin/date -> /bin/date
+  5510572      0 lrwxrwxrwx   1 root     root           15 Nov  1 10:52 ./user/bin/python -> /usr/bin/python
+  5510567      4 -r--r--r--   1 user     user           54 Nov  1 10:52 ./user/.bash_profile
+  5510573      4 -r--r--r--   1 user     user          719 Nov  1 10:52 ./user/login.py
+ 82634607      4 drwxr-xr-x   2 root     root         4096 Nov  1 10:52 ./navigationSystem
+  5510564      4 -r--------   1 navigationSystem navigationSystem       43 Nov  1 10:52 ./navigationSystem/flag.txt
+  5510561      4 -r--r--r--   1 navigationSystem navigationSystem      220 Apr 18  2019 ./navigationSystem/.bash_logout
+  5510562      4 -r--------   1 navigationSystem navigationSystem     3533 Nov  1 10:52 ./navigationSystem/.bashrc
+  5510563      4 -r--r--r--   1 navigationSystem navigationSystem      807 Apr 18  2019 ./navigationSystem/.profile
+ 82630783      4 dr-xr-xr-x   2 root             root                 4096 Nov  1 10:52 ./globalSystem
+  5510557      4 -r--r--r--   1 globalSystem     globalSystem          220 Apr 18  2019 ./globalSystem/.bash_logout
+  5510558      4 -r--r--r--   1 globalSystem     globalSystem         3533 Nov  1 10:52 ./globalSystem/.bashrc
+  5510559      4 -r--r--r--   1 globalSystem     globalSystem          807 Apr 18  2019 ./globalSystem/.profile

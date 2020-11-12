@@ -8,8 +8,8 @@ print "             Please enter your credentials                   "
 print "============================================================="
 username = "dev"
 password = "Sup3rStr0ngP4ssw0rd!!"
-while 1:
-    user = raw_input("Username: ")
+while 1:    
+    user = raw_input("Username: ")    
     passw = raw_input("Password: ")
     if user == username:
         if password == passw:

