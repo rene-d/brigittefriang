@@ -7,7 +7,6 @@ Le challenge se déroule en trois phases:
 2. 4 [défis](https://challengecybersec.fr/chat) de crypto, web, algo, forensic. Chaque défi réalisable indépendamment l'un de l'autre débloque l'accès aux CTF.
 3. 14 [challenges](https://ctf.challengecybersec.fr/7a144cdc500b28e80cf760d60aca2ed3/) du type *Capture The Flag*. Les CTF sont indépendants, nécessitent la création d'une *team*, il y a un *ranking* mis en place.
 
-
 ## Write-up
 
 | Challenge  | Catégorie | Points  | Description |
@@ -51,3 +50,15 @@ Pour relever le défi, rendez-vous dès le 24 octobre sur [www.challengecybersec
 
 Sources : DGSE<br>
 Droits : DGSE
+
+
+
+## Ranking final
+
+Le challenge a été réalisé en équipe. Nous avons terminé 31e avec 1800 points. Il manquait deux challenges à résoudre.
+
+L'ensemble des write-up sélectionnés est disponible ici: https://challenge-friang.gitbook.io/challenge-brigitte-friang/, dont le mien autour d'Enigma: [Enigme de la Crypte](https://challenge-friang.gitbook.io/challenge-brigitte-friang/coros-ctf/enigme-de-la-crypte)
+
+![ranking](ranking_final.png)
+
+![challenges](challenges_final.png)

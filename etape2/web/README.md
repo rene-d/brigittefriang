@@ -29,4 +29,12 @@
 
 > Une fois le billet récupéré envoyez moi la valeur du QRCode, ça devrait être de la forme : DGSESIEE{un_hash}
 
+*Agent 42*
+> DGSESIEE{2cd992f9b2319860ce3a35db6673a9b8}
+
+*Jérémy Nitel*
+> Grace à vous on sait maintenant qu'Evil Gouv envisage d'utiliser du VX contre la résistance ! En plus de ça vous avez votre billet d'avion ! Vous êtes incroyable ! J'ai un dernier défi pour vous, des sources sur le terrain ont pu intercepter une communication de l'agent Satan. Il nous assure que cette transmission est à propos du convoi
+
+capture.pcap
+
 ## WIP
